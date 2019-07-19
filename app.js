@@ -7,6 +7,7 @@ const ul = document.createElement('ul');
 const li = document.createElement('li');
 const input = document.createElement('input');
 
+
 //add eventlistener
 form.addEventListener('submit', addTask);
 
@@ -30,34 +31,38 @@ function addTask(e) {
         taskText = taskField.value;
         createTaskList(taskText);
     }
-
+    console.log('endEvent');
     e.preventDefault();
 }
 
 //init task list
 function initTaskList(taskListWrapper) {
-    let list = taskListWrapper.querySelector('ul');
-    let clearButton = createInput(button);
+    let clearButton = taskListWrapper.querySelector('input[type="submit"]');
 
-    if (!list) {
-        taskListWrapper.appendChild(ul);
-        list = taskListWrapper.querySelector('ul');
-        taskListWrapper.appendChild(button);
-        button.innerText = ''
+    taskListWrapper.appendChild(ul);
+    if (!clearButton) {
+        clearButton = createInput(input, 'submit', 'Clear Tasks');
+        taskListWrapper.appendChild(clearButton);
     }
 
-    return list;
+    return list = taskListWrapper.querySelector('ul');
 }
 
 //create task list
 function createTaskList(taskText) {
-    let list = initTaskList(taskListWrapper);
+    var list = taskListWrapper.querySelector('ul');
+    if (!list) {
+        console.log('init');
+        list = initTaskList(taskListWrapper);
+    }
     
     return createTask(list, taskText);
 }
 
 //add item to task list
-function createTask(ul, text) {
+function createTask(list, text) {
+    console.log('create');
+    console.log(list);
     li.innerText = text;
-    return ul.appendChild(li);
+    return list.appendChild(li);
 }

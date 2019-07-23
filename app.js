@@ -4,8 +4,8 @@ const form = document.querySelector('.task-form');
 const taskField = document.querySelector('#task_name');
 const taskListWrapper = document.querySelector('.task-list-wrapper');
 const ul = document.createElement('ul');
-const li = document.createElement('li');
 const input = document.createElement('input');
+let li;
 let list;
 
 //create input
@@ -23,6 +23,8 @@ form.addEventListener('submit', addTask);
 
 //add task to list
 function addTask(e) {
+    e.preventDefault();
+
     let taskText;
 
     if (taskField.value === '') {
@@ -32,7 +34,9 @@ function addTask(e) {
         addToStorage(taskText);
         renderTaskList();
     }
-    e.preventDefault();
+
+    clearButton = taskListWrapper.querySelector('input');
+    clear.addEventListener('click', clearTask);
 }
 
 //add to localStorage 
@@ -53,9 +57,16 @@ function renderTaskList() {
     if (localStorage.getItem('taskList') == '') return;
     listArray = JSON.parse(localStorage.getItem('taskList'));
     list = taskListWrapper.appendChild(ul);
+    button = createInput(input, 'submit', 'Clear Task');
+    taskListWrapper.appendChild(button);
     listArray.forEach(function(e){
-        link = li;
-        link.innerText = e;
-        list.appendChild(link);
+        li = document.createElement('li');
+        li.innerText = e;
+        list.appendChild(li);
     });
+}
+
+//clear all tasks
+function clearTask() {
+    localStorage.clear();
 }

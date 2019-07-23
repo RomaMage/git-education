@@ -6,10 +6,7 @@ const taskListWrapper = document.querySelector('.task-list-wrapper');
 const ul = document.createElement('ul');
 const li = document.createElement('li');
 const input = document.createElement('input');
-
-
-//add eventlistener
-form.addEventListener('submit', addTask);
+let list;
 
 //create input
 function createInput(input, type, text) {
@@ -21,6 +18,9 @@ function createInput(input, type, text) {
     return input;
 }
 
+//add eventlistener
+form.addEventListener('submit', addTask);
+
 //add task to list
 function addTask(e) {
     let taskText;
@@ -29,40 +29,33 @@ function addTask(e) {
         alert('please add Task');
     } else {
         taskText = taskField.value;
-        createTaskList(taskText);
+        addToStorage(taskText);
+        renderTaskList();
     }
-    console.log('endEvent');
     e.preventDefault();
 }
 
-//init task list
-function initTaskList(taskListWrapper) {
-    let clearButton = taskListWrapper.querySelector('input[type="submit"]');
-
-    taskListWrapper.appendChild(ul);
-    if (!clearButton) {
-        clearButton = createInput(input, 'submit', 'Clear Tasks');
-        taskListWrapper.appendChild(clearButton);
+//add to localStorage 
+function addToStorage(text) {
+    let storageList = localStorage.getItem('taskList');
+    let listArray = new Array();
+    if (storageList == '') {
+        localStorage.setItem('taskList', '');
+    } else {
+        listArray = JSON.parse(localStorage.getItem('taskList'));    
     }
-
-    return list = taskListWrapper.querySelector('ul');
+    listArray[listArray.length] = text;
+    return localStorage.setItem('taskList', JSON.stringify(listArray));
 }
 
-//create task list
-function createTaskList(taskText) {
-    var list = taskListWrapper.querySelector('ul');
-    if (!list) {
-        console.log('init');
-        list = initTaskList(taskListWrapper);
-    }
-    
-    return createTask(list, taskText);
-}
-
-//add item to task list
-function createTask(list, text) {
-    console.log('create');
-    console.log(list);
-    li.innerText = text;
-    return list.appendChild(li);
+//render task list
+function renderTaskList() {
+    if (localStorage.getItem('taskList') == '') return;
+    listArray = JSON.parse(localStorage.getItem('taskList'));
+    list = taskListWrapper.appendChild(ul);
+    listArray.forEach(function(e){
+        link = li;
+        link.innerText = e;
+        list.appendChild(link);
+    });
 }

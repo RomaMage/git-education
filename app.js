@@ -6,7 +6,7 @@ const taskListWrapper = document.querySelector('.task-list-wrapper');
 let checkList = checkTasksList();
 
 if (checkList[1]) {
-    initHtmlList();
+    renderHtmlList();
 }
 form.addEventListener('submit', addTask);
 
@@ -14,15 +14,20 @@ form.addEventListener('submit', addTask);
 function addTask(e) {
     e.preventDefault();
     let taskText = '';
-    let list = JSON.parse(localStorage.getItem('taskList'));
+    let listIndexes = new Array();
+    let list = new Array();
+
+    list = JSON.parse(localStorage.getItem('taskList'));
 
     if (taskField.value === '') {
         alert('Please Add Task');
     } else {
-        index = (list !== null) ? list.length : 0;
+        if (list && list.keys !== null) {
+            listIndexes = list.keys();
+        }
         taskText = taskField.value;
         addToTasks(taskText);
-        addHtmlListItem(index, taskText);
+        addHtmlListItem(listIndexes[listIndexes.length - 1], taskText);
     }
 }
 
@@ -40,20 +45,24 @@ function addToTasks(text) {
 // Init Html List
 function initHtmlList() {
     const ul = document.createElement('ul');
+    let checkList = checkTasksList();
     ul.className = 'task-list';
     taskListWrapper.appendChild(ul);
+
+    return taskListWrapper.querySelector('ul');
+}
+
+function renderHtmlList() {
+    let list = initHtmlList();
     if (checkList[1]) {
         let list = JSON.parse(localStorage.getItem('taskList'));
         list.forEach(function(item, index){
             addHtmlListItem(index, item);
         });
     }
-
-    return taskListWrapper.querySelector('ul');
 }
 
 function addHtmlListItem(index, text) {
-    if (text === 'undefined') return;
     let list;
     list = (taskListWrapper.querySelector('ul')) ? taskListWrapper.querySelector('ul') : initHtmlList();
     li = document.createElement('li');
@@ -68,12 +77,7 @@ function addHtmlListItem(index, text) {
     list.appendChild(li);
     if (!taskListWrapper.querySelector('input[type="button"]')) addClearTasksButton();
 
-    let removeItems = taskListWrapper.querySelectorAll('.remove-item');
-    if (removeItems) {
-        removeItems.forEach(function(element){
-            element.addEventListener('click', removeItem);
-        });
-    }
+    taskListWrapper.addEventListener('click', removeItem(event), false);
 }
 
 function addClearTasksButton() {
@@ -88,14 +92,18 @@ function addClearTasksButton() {
 }
 
 function removeItem(event) {
-    let clickedLink = event.target;
-    let parentItem = clickedLink.parentNode;
-    parentItem.parentNode.removeChild(parentItem);
-    let list = JSON.parse(localStorage.getItem('taskList'));
-    if (list) {
-        list.splice(parentItem.dataset.id, 1);
+    console.log(event);
+    if (event.target !== event.currentTarget) {
+        let parentItem = event.target.parentNode;
+
+        console.log(event);
+        parentItem.parentNode.removeChild(parentItem);
+        let list = JSON.parse(localStorage.getItem('taskList'));
+        if (list) {
+            list.splice(parentItem.dataset.id, 1);
+        }
+        localStorage.setItem('taskList', JSON.stringify(list));
     }
-    localStorage.setItem('taskList', JSON.stringify(list));
 }
 
 function clearAllTasks() {

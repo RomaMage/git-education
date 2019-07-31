@@ -93,16 +93,8 @@ function addClearTasksButton() {
 
 function removeItem(event) {
     console.log(event);
-    if (event.target !== event.currentTarget) {
-        let parentItem = event.target.parentNode;
-
-        console.log(event);
-        parentItem.parentNode.removeChild(parentItem);
-        let list = JSON.parse(localStorage.getItem('taskList'));
-        if (list) {
-            list.splice(parentItem.dataset.id, 1);
-        }
-        localStorage.setItem('taskList', JSON.stringify(list));
+    if (event.target.parentElement.classList.contains('remove-item')) {
+        event.target.parentElement.parentElement.remove();
     }
 }
 

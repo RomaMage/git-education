@@ -4,17 +4,35 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>JavaScript Education</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="tasks-widget">
         <div class="task-form-wrapper">
             <form class="task-form">
-                <label for="task_name"></label>
-                <input type="text" name="task_name" id="task_name" class="task-field">
+                <label for="task_name">Title</label>
+                <input type="text" name="title" id="task-title" class="task-field">
+                <label for="task-priority">Task Priority</label>
+                <select id="task-priority" name="task-priority" class="task-select">
+                    <option value="major">Major</option>
+                    <option value="normal">Normal</option>
+                    <option value="minor">Minor</option>
+                </select>
+                <label for="task-description">Task Description</label>
+                <textarea rows="5" id="task-description" placeholder="task description"></textarea>
                 <input type="submit" value="Add task" class="btn">
             </form>
         </div>
-        <div class="task-list-wrapper"></div>
+        <div class="task-list-wrapper">
+            <table width="100%">
+                <tr>
+                    <th>number</th>
+                    <th>title</th>
+                    <th>priority</th>
+                    <th>description</th>
+                </tr>
+            </table>
+        </div>
     </div>
     <footer>
         <script src="app.js"></script>

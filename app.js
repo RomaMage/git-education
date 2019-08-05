@@ -1,63 +1,87 @@
-//Define variable
+//Set vertical align for widget
 
-const form = document.querySelector('.task-form');
-const taskField = document.querySelector('#task_name');
-const taskListWrapper = document.querySelector('.task-list-wrapper');
-const ul = document.createElement('ul');
-const li = document.createElement('li');
-const input = document.createElement('input');
+function verticalAlign() {
+    let form = document.querySelector('.widget-wrapper');
+    let align;
 
-//add eventlistener
-form.addEventListener('submit', addTask);
+    align = (window.innerHeight - form.offsetHeight) / 2;
 
-//create input
-function createInput(input, type, text) {
-    if (!type) return;
-    input.setAttribute('type', type);
-    if ((type === 'submit' || type === 'button') && text)  {
-        input.setAttribute('value', text)
-    }
-    return input;
+    form.setAttribute('style', 'margin: ' + align + ' auto' );
 }
 
-//add task to list
-function addTask(e) {
-    let taskText;
+verticalAlign();
+window.addEventListener('resize', verticalAlign, false);
 
-    if (taskField.value === '') {
-        alert('please add Task');
-    } else {
-        taskText = taskField.value;
-        createTaskList(taskText);
+
+//Functions
+class Profile {
+    constructor(firstName, lastName, email, phone, comments) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.phone = phone;
+        this.comments = comments;
+    }
+}
+
+class UI {
+    addProfile(profile) {
+
+        if (this.validateData(profile) !== '') {
+            alert(this.validateData(profile));
+            return;
+        };
+
+        const table = document.querySelector('.profile-list table tbody');
+        const tr = document.createElement('tr');
+
+        tr.innerHTML = `<td>${profile.firstName}</td>
+                        <td>${profile.lastName}</td>
+                        <td>${profile.email}</td>
+                        <td>${profile.phone}</td>
+                        <td>${profile.comments}</td>`;
+        
+        table.append(tr);
     }
 
+    validateData(profile) {
+        if (Object.getOwnPropertyNames(profile).length !== 0) {
+            
+            for (let key in profile) {
+                if (profile[key] === '') {
+                    console.log();
+                    return 'please fill ' + key + ' field';
+                }
+            }
+        }
+    }
+}
+
+class Storage {
+
+    initStorage() {
+        const list = new Array();
+        localStorage.setItem('Profiles', list);
+    }
+
+    addToStorage(profile) {
+        
+    }
+}
+
+document.querySelector('.adding-form').addEventListener('submit', function(e){
     e.preventDefault();
-}
 
-//init task list
-function initTaskList(taskListWrapper) {
-    let list = taskListWrapper.querySelector('ul');
-    let clearButton = createInput(button);
+    const form = document.querySelector('form.adding-form');
+    const firstName = form.querySelector('#first_name').value;
+    const lastName = form.querySelector('#last_name').value;
+    const email = form.querySelector('#email').value;
+    const phone = form.querySelector('#phone').value;
+    const comments = form.querySelector('#comments').value;
 
-    if (!list) {
-        taskListWrapper.appendChild(ul);
-        list = taskListWrapper.querySelector('ul');
-        taskListWrapper.appendChild(button);
-        button.innerText = ''
-    }
+    const profile = new Profile(firstName, lastName, email, phone, comments);
+    const ui = new UI();
+    const storage = new Storage();
 
-    return list;
-}
-
-//create task list
-function createTaskList(taskText) {
-    let list = initTaskList(taskListWrapper);
-    
-    return createTask(list, taskText);
-}
-
-//add item to task list
-function createTask(ul, text) {
-    li.innerText = text;
-    return ul.appendChild(li);
-}
+    ui.addProfile(profile);
+});

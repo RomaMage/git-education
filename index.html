@@ -4,17 +4,50 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>JavaScript Education</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="tasks-widget">
-        <div class="task-form-wrapper">
-            <form class="task-form">
-                <label for="task_name"></label>
-                <input type="text" name="task_name" id="task_name" class="task-field">
-                <input type="submit" value="Add task" class="btn">
+    <div class="content-wrapper">
+        <div class="widget-wrapper">
+            <form class="adding-form">
+                <div class="row-item">
+                    <label for="first_name">First Name</label>
+                    <input id="first_name" type="text" />
+                </div>
+                <div class="row-item">
+                    <label for="last_name">Last Name</label>
+                    <input id="last_name" type="text" />
+                </div>
+                <div class="row-item">
+                    <label for="email">Email</label>
+                    <input id="email" type="email" />
+                </div>
+                <div class="row-item">
+                    <label for="phone">Phone</label>
+                    <input id="phone" type="tel" />
+                </div>
+                <div class="row-item">
+                    <label for="comments">Comments</label>
+                    <textarea id="comments" placeholder="Write your comments" rows="5"></textarea>
+                </div>
+                <div class="row-item">
+                    <input id="form-submit" type="submit" value="Add Profile" />
+                </div>
             </form>
+            <div class="profile-list">
+                <table>
+                    <tbody>
+                        <tr>
+                            <th>First Name</th>
+                            <th>Last Name</th>
+                            <th>Email</th>
+                            <th>Phone</th>
+                            <th>Comments</th>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
-        <div class="task-list-wrapper"></div>
     </div>
     <footer>
         <script src="app.js"></script>

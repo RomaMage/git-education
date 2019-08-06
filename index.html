@@ -6,17 +6,44 @@
     <title>JavaScript Education</title>
 </head>
 <body>
-    <div class="tasks-widget">
-        <div class="task-form-wrapper">
-            <form class="task-form">
-                <label for="task_name"></label>
-                <input type="text" name="task_name" id="task_name" class="task-field">
-                <input type="submit" value="Add task" class="btn">
+    <div class="weather-widget">
+        <div class="form-wrapper">
+            <form id="set-location">
+                <div class="row">
+                    <div class="current-location-data">
+                        <span id="current-location"></span>
+                        <span id="current-date"></span>
+                    </div>
+                    <input type="text" id="locationCity" name="locationCity" />
+                    <input type="submit" value="Set New Location" />
+                </div>
             </form>
         </div>
-        <div class="task-list-wrapper"></div>
+        <div class="row-item">
+            <img id="w-icon" src="" alt="">
+        </div>
+        <div class="row-item">
+            <span id="w-temp"></span>
+        </div>
+        <div class="row-item">
+            <span id="w-feelslike"></span>
+        </div>
+        <div class="row-item">
+            <span id="w-pressure"></span>
+        </div>
+        <div class="row-item">
+            <span id="w-visibility"></span>
+        </div>
+        <div class="row-item">
+            <span id="w-wind-degree"></span>
+        </div>
+        <div class="row-item">
+            <span id="w-wind-speed"></span>
+        </div>
     </div>
     <footer>
+        <script src="weather.js"></script>
+        <script src="ui.js"></script>
         <script src="app.js"></script>
     </footer>
 </body>

@@ -1,0 +1,27 @@
+body {
+    padding: 0;
+    margin: 0;
+}
+#movies-list {
+    width: 100%;
+    overflow: hidden;
+    background: linear-gradient(-45deg, #777, #fff);
+}
+
+#movies-list .list-items ul {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+#movies-list .list-items ul li {
+    list-style: none;
+}
+
+#movies-form {
+    width: 600px;
+    overflow: hidden;
+    margin: 25px auto;
+}

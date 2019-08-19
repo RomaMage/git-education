@@ -4,45 +4,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>JavaScript Education</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="weather-widget">
-        <div class="form-wrapper">
-            <form id="set-location">
-                <div class="row">
-                    <div class="current-location-data">
-                        <span id="current-location"></span>
-                        <span id="current-date"></span>
+    <div class="main-content">
+        <div id="movies-list">
+            <div class="movies-form">
+                <form id="movies-form">
+                    <div class="form-item">
+                        <label>List Id</label>
+                        <input type="text"  placeholder="Set List Id"/>
                     </div>
-                    <input type="text" id="locationCity" name="locationCity" />
-                    <input type="submit" value="Set New Location" />
-                </div>
-            </form>
-        </div>
-        <div class="row-item">
-            <img id="w-icon" src="" alt="">
-        </div>
-        <div class="row-item">
-            <span id="w-temp"></span>
-        </div>
-        <div class="row-item">
-            <span id="w-feelslike"></span>
-        </div>
-        <div class="row-item">
-            <span id="w-pressure"></span>
-        </div>
-        <div class="row-item">
-            <span id="w-visibility"></span>
-        </div>
-        <div class="row-item">
-            <span id="w-wind-degree"></span>
-        </div>
-        <div class="row-item">
-            <span id="w-wind-speed"></span>
+                    <div class="form-item button-holder">
+                        <input type="submit" value="Submit" />
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
     <footer>
-        <script src="weather.js"></script>
+        <script src="movie.js"></script>
         <script src="ui.js"></script>
         <script src="app.js"></script>
     </footer>

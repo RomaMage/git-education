@@ -3,23 +3,6 @@ class UI {
         
     }
 
-    // getListInfo(item) {
-    //     let info;
-
-    //     info = `<div class="list-information">
-    //                 <h1>${item.name}</h1>
-    //                 <div class="list-description">
-    //                     <p>${item.description}</p>
-    //                 </div>
-    //                 <div class="list-items">
-    //                     <ul></ul>
-    //                 </div>
-    //             </div>
-    //             `;
-
-    //     return info;
-    // }
-
     getMovieHtml(item) {
         const li = document.createElement('li');
 

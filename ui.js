@@ -1,18 +1,18 @@
 class UI {
-    constructor() {
-        
+
+    constructor () {
     }
 
-    getMovieHtml(item) {
-        const li = document.createElement('li');
-
-        li.innerHTML = `<div class="item-${item.id} list-item">
-                            <div class="img-hldr"><img src="https://image.tmdb.org/t/p/w500${item.backdrop_path}" alt="" /></div>
-                            <div class="info-hldr">
-                                <h4>${item.title}</h4>
-                            </div>
-                        </div>`;
+    searchMovie(search) {
+        const list = document.querySelectorAll('.list-items ul.list li.list-item');
         
-        return li;
+        if (search.length > 0) {
+            list.forEach((item) => {
+                if (item.querySelector('.info-hldr h4').innerHTML.indexOf(search) === -1) {
+                    item.className = 'invisible';
+                }
+            });
+        }
     }
+
 }

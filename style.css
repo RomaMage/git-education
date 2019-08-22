@@ -21,6 +21,10 @@ body {
     list-style: none;
 }
 
+#movies-list .list-items ul li.invisible {
+    display: none;
+}
+
 #movies-list .list-items ul li .img-hldr img {
     width: 250px;
     height: 150px;

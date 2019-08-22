@@ -1,8 +1,5 @@
 class UI {
 
-    constructor () {
-    }
-
     searchMovie(search) {
         const list = document.querySelectorAll('.list-items ul.list li.list-item');
         
@@ -15,4 +12,5 @@ class UI {
         }
     }
 
+    
 }

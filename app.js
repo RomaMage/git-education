@@ -2,7 +2,7 @@ const request = new Requests();
 const ui = new UI();
 const listWrapper = document.getElementById('movies-list');
 const formSubmit = document.getElementById('movies-form');
-const list = listWrapper.querySelector('.list-items ul');
+const list = listWrapper.querySelector('.list-items .list');
 const pagination = document.querySelector('.button-holder button');
 var allGenres = new Array();
 
@@ -16,7 +16,6 @@ function getMovies(page) {
     request.getMovies(page)
     .then(results => {
         console.log(results);
-        console.log(allGenres);
         if (results.total_results > 0) {
             results.results.forEach((item) => {
                 let movie = new Movie(item, allGenres);
@@ -24,6 +23,8 @@ function getMovies(page) {
             });
             list.setAttribute('data-id', results.page);
         }
+
+        showMovieInfo();
     })
     .catch(err => console.log(err));
 }
@@ -50,8 +51,21 @@ function showMore() {
 function searchMovie() {
     const searchField = document.getElementById('search');
 
-    console.log(search);
     searchField.addEventListener('keyup', (e) => {
         ui.searchMovie(searchField.value);
+    });
+}
+
+function showMovieInfo () {
+    list.querySelectorAll('li.list-item').forEach((item) => {
+        item.addEventListener('click', (e) => {
+            const itemId = e.target.closest('li.list-item').getAttribute('data-id');
+            request.getMovie(itemId)
+            .then(movie => {
+                console.log(movie);
+                const div = document.createElement('div');
+            })
+            .catch(err => console.log(err));
+        });
     });
 }

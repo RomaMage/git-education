@@ -4,6 +4,7 @@ class Requests {
         this.apiHost = 'https://api.themoviedb.org/3';
         this.discoverUrl = '/discover/movie';
         this.genreListUrl = '/genre/movie/list';
+        this.movieUrl = '/movie/'
     }
 
     async getMovies(page) {
@@ -16,6 +17,13 @@ class Requests {
 
     async getGenres() {
         const response = await fetch(`${this.apiHost}${this.genreListUrl}?api_key=${this.apiKey}`);
+        const responseData = await response.json();
+
+        return responseData;
+    }
+
+    async getMovie(id) {
+        const response = await fetch(`${this.apiHost}${this.movieUrl}${id}?api_key=${this.apiKey}`);
         const responseData = await response.json();
 
         return responseData;

@@ -29,3 +29,7 @@ body {
     width: 250px;
     height: 150px;
 }
+
+#modal {
+    display: none;
+}

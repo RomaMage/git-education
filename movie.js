@@ -10,6 +10,7 @@ class Movie {
     getMoviePreviewHtml (){
         const li = document.createElement('li');
         li.classList = 'list-item item-' + this.id;
+        li.setAttribute('data-id', this.id);
         li.innerHTML = `<div class="img-hldr"><img src="${this.image}" alt="" /></div>
                         <div class="info-hldr">
                             <h4>${this.title}</h4>
@@ -43,6 +44,10 @@ class Movie {
         li.innerHTML = genres[item];
 
         return li;
+    }
+
+    getMovieCardHtml (movie) {
+        
     }
 
 }

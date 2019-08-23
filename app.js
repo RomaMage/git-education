@@ -62,10 +62,18 @@ function showMovieInfo () {
             const itemId = e.target.closest('li.list-item').getAttribute('data-id');
             request.getMovie(itemId)
             .then(movie => {
-                console.log(movie);
-                const div = document.createElement('div');
+                showModal(movie);
             })
             .catch(err => console.log(err));
         });
     });
+}
+
+function showModal (item, allGenres) {
+    const modal = document.getElementById('modal');
+    const movie = new MovieCard(item, allGenres);
+
+    console.log(movie);
+    modal.innerHTML = movie.getCardHtml();
+    ui.showModal();
 }

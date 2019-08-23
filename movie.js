@@ -46,8 +46,4 @@ class Movie {
         return li;
     }
 
-    getMovieCardHtml (movie) {
-        
-    }
-
 }

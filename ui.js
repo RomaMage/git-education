@@ -12,5 +12,9 @@ class UI {
         }
     }
 
+    showModal () {
+        modal.style.display = 'block';
+    }
+
     
 }

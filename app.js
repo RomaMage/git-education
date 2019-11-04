@@ -15,7 +15,6 @@ getGenres();
 function getMovies(page) {
     request.getMovies(page)
     .then(results => {
-        console.log(results);
         if (results.total_results > 0) {
             results.results.forEach((item) => {
                 let movie = new Movie(item, allGenres);
@@ -60,6 +59,7 @@ function showMovieInfo () {
     list.querySelectorAll('li.list-item').forEach((item) => {
         item.addEventListener('click', (e) => {
             const itemId = e.target.closest('li.list-item').getAttribute('data-id');
+
             request.getMovie(itemId)
             .then(movie => {
                 showModal(movie);
@@ -69,11 +69,19 @@ function showMovieInfo () {
     });
 }
 
-function showModal (item, allGenres) {
+function showModal (item) {
     const modal = document.getElementById('modal');
-    const movie = new MovieCard(item, allGenres);
+    const movie = new MovieCard(item);
 
-    console.log(movie);
-    modal.innerHTML = movie.getCardHtml();
-    ui.showModal();
+    modal.innerHTML = movie.getCardHtml(item);
+    ui.showModal(item);
+    modalPosition();
+}
+
+function modalPosition() {
+    let screenHeight = window.innerHeight;
+    let $modal = document.querySelector('.movie-card');
+    let modalHeight = $modal.offsetHeight;
+
+    $modal.style.marginTop = (screenHeight - modalHeight) / 2;
 }

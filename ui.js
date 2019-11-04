@@ -12,7 +12,7 @@ class UI {
         }
     }
 
-    showModal () {
+    showModal (item) {
         modal.style.display = 'block';
     }
 

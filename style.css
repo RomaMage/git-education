@@ -34,8 +34,25 @@ body {
 #modal {
     display: none;
     position: absolute;
-    min-width: 320px;
-    top: 25%;
-    left: 25%;
+    min-width: 100%;
+    top: 0;
+    left: 0;
+    height: 100%;
     overflow: hidden;
+    background: rgba(0, 0, 0, 0.5);
+}
+#modal .movie-card {
+    background: #fff;
+    max-width: 320px;
+    margin: 0 auto;
+    overflow: hidden;
+    padding: 25px;
+}
+
+#modal .img-hldr {
+    width: 100%;
+    overflow: hidden;
+}
+#modal .img-hldr img {
+    width: 100%;
 }

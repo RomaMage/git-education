@@ -28,4 +28,10 @@ class Requests {
 
         return responseData;
     }
+    async getRecommendations(id) {
+        const response = await fetch(`${this.apiHost}${this.movieUrl}${id}/recommendations?api_key=${this.apiKey}`);
+        const responseData = await response.json();
+
+        return responseData;
+    }
 }

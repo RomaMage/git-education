@@ -12,9 +12,25 @@ class UI {
         }
     }
 
-    showModal (item) {
+    showModal () {
         modal.style.display = 'block';
+        this.hideModal();
     }
 
+    modalPosition() {
+        let screenHeight = window.innerHeight;
+        let $modal = document.querySelector('.movie-card');
+        let modalHeight = $modal.offsetHeight;
+    
+        $modal.style.marginTop = (screenHeight - modalHeight) / 2;
+    }
+
+    hideModal () {
+        modal.addEventListener('click', (e) => {
+            if (e.target.id !== 'undefined' && (e.target.id == 'modal' || e.target.id == 'close-button')) {
+                modal.style.display = 'none';
+            }
+        });
+    }
     
 }

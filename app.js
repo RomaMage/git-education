@@ -3,8 +3,8 @@ const ui = new UI();
 const listWrapper = document.getElementById('movies-list');
 const formSubmit = document.getElementById('movies-form');
 const list = listWrapper.querySelector('.list-items .list');
-const pagination = document.querySelector('.button-holder button');
-var allGenres = new Array();
+const pagination = document.getElementById('add-more-movies');
+let allGenres = new Array();
 
 
 document.addEventListener('DOMContentLoaded', getMovies);
@@ -40,7 +40,7 @@ function getGenres() {
 
 function showMore() {
     if (pagination) {
-        pagination.addEventListener('click', (e) => {
+        pagination.addEventListener('click', () => {
             let page_num = list.getAttribute('data-id');
             getMovies(parseInt(page_num) + 1);
         });
@@ -50,7 +50,7 @@ function showMore() {
 function searchMovie() {
     const searchField = document.getElementById('search');
 
-    searchField.addEventListener('keyup', (e) => {
+    searchField.addEventListener('keyup', () => {
         ui.searchMovie(searchField.value);
     });
 }
@@ -75,13 +75,6 @@ function showModal (item) {
 
     modal.innerHTML = movie.getCardHtml(item);
     ui.showModal(item);
-    modalPosition();
+    ui.modalPosition();
 }
 
-function modalPosition() {
-    let screenHeight = window.innerHeight;
-    let $modal = document.querySelector('.movie-card');
-    let modalHeight = $modal.offsetHeight;
-
-    $modal.style.marginTop = (screenHeight - modalHeight) / 2;
-}

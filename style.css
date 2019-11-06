@@ -3,32 +3,66 @@ body {
     margin: 0;
     font: 12px 'sans serif';
     position: relative;
+    background: #000;
 }
 #movies-list {
     width: 100%;
     overflow: hidden;
-    background: linear-gradient(-45deg, #777, #fff);
+    background: repeating-linear-gradient(transparent, transparent 50px, rgba(0,255,255, .25) 50px,rgba(0,255,255, .25) 100px), repeating-linear-gradient(90deg, rgba(0,255,255, .25), rgba(0,255,255, .25) 50px, transparent 50px, transparent 100px), repeating-linear-gradient(135deg, transparent, transparent 4px, rgba(255,255,255,.1) 4px, rgba(255,255,255,.1) 8px), repeating-linear-gradient(45deg, transparent, transparent 4px, rgba(255,255,255,.1) 4px, rgba(255,255,255,.1) 8px), repeating-linear-gradient(transparent, transparent 20px, rgba(100,250,250, .2) 20px, rgba(100,250,250, .2) 21px, transparent 21px,transparent 29px, rgba(100,250,250, .2) 29px, rgba(100,250,250, .2) 30px, transparent 30px, transparent 50px), repeating-linear-gradient(90deg, transparent, transparent 20px, rgba(100,250,250, .2) 20px, rgba(100,250,250, .2) 21px, transparent 21px,transparent 29px, rgba(100,250,250, .2) 29px, rgba(100,250,250, .2) 30px, transparent 30px, transparent 50px);
 }
 
 #movies-list .list-items ul {
-    margin: 25px 30px;
+    margin: 25px 30px 0;
     padding: 0;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
 }
 
-#movies-list .list-items ul li {
+#movies-list .list-items > ul > li {
     list-style: none;
+    background: #fff;
+    box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+    margin: 0 0 10px;
+    width: 250px;
+    padding: 10px;
+    -webkit-transition: all 0.5s ease-in-out;
+    -moz-transition: all 0.5s ease-in-out;
+    -o-transition: all 0.5s ease-in-out;
+    transition: all 0.5s ease-in-out;
 }
 
 #movies-list .list-items ul li.invisible {
     display: none;
 }
 
+#movies-list .list-items ul li .img-hldr {
+    text-align: center;
+}
+
+#movies-list .info-hldr {
+    text-align: center;
+}
+
+#movies-list .info-hldr h4 {
+    font-size: 16px;
+}
+
+#movies-list .genres-list {
+    display: flex;
+    flex-direction: column;
+}
+
+#movies-list .genres-list > li {
+    list-style: none;
+    font-size: 14px;
+    margin-bottom: 9px;
+}
+
 #movies-list .list-items ul li .img-hldr img {
-    width: 250px;
-    height: 150px;
+    width: 230px;
+    height: auto;
+    margin: 0 auto;
 }
 
 #modal {
@@ -47,6 +81,7 @@ body {
     margin: 0 auto;
     overflow: hidden;
     padding: 25px;
+    position: relative;
 }
 
 #modal .img-hldr {
@@ -55,4 +90,10 @@ body {
 }
 #modal .img-hldr img {
     width: 100%;
+}
+#modal #close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
 }

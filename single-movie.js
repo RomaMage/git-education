@@ -11,7 +11,8 @@ class MovieCard {
         div.innerHTML = `<h4>${this.title}</h4>
                         <div class="img-hldr">
                             <img src="${this.image}" alt="" />
-                        </div>`;
+                        </div>
+                        <a id="close-button">X</a>`;
 
         return div.outerHTML;
     }

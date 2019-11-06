@@ -77,15 +77,15 @@ body {
 }
 #modal .movie-card {
     background: #fff;
-    max-width: 320px;
+    max-width: 800px;
     margin: 0 auto;
     overflow: hidden;
     padding: 25px;
     position: relative;
 }
 
-#modal .img-hldr {
-    width: 100%;
+#modal .movie-card > .img-hldr {
+    width: 50%;
     overflow: hidden;
 }
 #modal .img-hldr img {
@@ -96,4 +96,19 @@ body {
     top: 10px;
     right: 10px;
     cursor: pointer;
+}
+
+#modal .recommendations-list {
+    width: 100%;
+}
+#modal .recommendations-list ul {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+#modal .recommendations-list li {
+    width: 30%;
+    list-style: none;
+    margin: 0 5px 10px;
 }

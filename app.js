@@ -5,6 +5,7 @@ const formSubmit = document.getElementById('movies-form');
 const list = listWrapper.querySelector('.list-items .list');
 const pagination = document.getElementById('add-more-movies');
 let allGenres = new Array();
+let recommendsList = new Array();
 
 
 document.addEventListener('DOMContentLoaded', getMovies);
@@ -56,25 +57,31 @@ function searchMovie() {
 }
 
 function showMovieInfo () {
+    const recommendation = new Recommendation();
+
     list.querySelectorAll('li.list-item').forEach((item) => {
         item.addEventListener('click', (e) => {
             const itemId = e.target.closest('li.list-item').getAttribute('data-id');
 
+            request.getRecommendations(itemId)
+            .then(recommendations => {
+                recommendsList = recommendation.showRecommendsHtml(recommendations.results);
+            })
+            .catch(err => console.log(err));
             request.getMovie(itemId)
             .then(movie => {
-                showModal(movie);
+                showModal(movie, recommendsList);
             })
             .catch(err => console.log(err));
         });
     });
 }
 
-function showModal (item) {
+function showModal (item, recommendsList) {
     const modal = document.getElementById('modal');
     const movie = new MovieCard(item);
 
-    modal.innerHTML = movie.getCardHtml(item);
+    modal.innerHTML = movie.getCardHtml(recommendsList);
     ui.showModal(item);
     ui.modalPosition();
 }
-

@@ -3,48 +3,39 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>JavaScript Education</title>
+    <title>JavaScript Canvas Education</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="main.js"></script>
 </head>
 <body>
-    <div class="weather-widget">
-        <div class="form-wrapper">
-            <form id="set-location">
-                <div class="row">
-                    <div class="current-location-data">
-                        <span id="current-location"></span>
-                        <span id="current-date"></span>
-                    </div>
-                    <input type="text" id="locationCity" name="locationCity" />
-                    <input type="submit" value="Set New Location" />
+    <div class="office-map">
+        <ul class="levels">
+            <li class="level">
+                <input type="radio" name="tabs" checked="checked" id="level2" />
+                <label for="level2">Level 2</label> 
+                <div id="level-map2" class="content">
+                    <h2>Level 2</h2>
+                    <div class="level-map"><img src="images/Atlex-Soft-2.jpg" alt="Level 2" title="Level 2" /></div>
                 </div>
-            </form>
-        </div>
-        <div class="row-item">
-            <img id="w-icon" src="" alt="">
-        </div>
-        <div class="row-item">
-            <span id="w-temp"></span>
-        </div>
-        <div class="row-item">
-            <span id="w-feelslike"></span>
-        </div>
-        <div class="row-item">
-            <span id="w-pressure"></span>
-        </div>
-        <div class="row-item">
-            <span id="w-visibility"></span>
-        </div>
-        <div class="row-item">
-            <span id="w-wind-degree"></span>
-        </div>
-        <div class="row-item">
-            <span id="w-wind-speed"></span>
-        </div>
+            </li>
+            <li class="level">
+                <input type="radio" name="tabs" checked="checked" id="level3" />
+                <label for="level3">Level 3</label> 
+                <div id="level-map3" class="content">
+                    <h2>Level 3</h2>
+                    <div class="level-map"><img src="images/Atlex-Soft-3.jpg" alt="Level 3" title="Level 3" /></div>
+                </div>
+            </li>
+            <li class="level">
+                <input type="radio" name="tabs" checked="checked" id="level4" />
+                <label for="level4">Level 4</label> 
+                <div id="level-map4" class="content">
+                    <h2>Level 4</h2>
+                    <div class="level-map"><img src="images/Atlex-Soft-4.jpg" alt="Level 4" title="Level 4" /></div>
+                </div>
+            </li>
+        </ul>
     </div>
-    <footer>
-        <script src="weather.js"></script>
-        <script src="ui.js"></script>
-        <script src="app.js"></script>
-    </footer>
 </body>
 </html>

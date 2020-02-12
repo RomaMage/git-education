@@ -1,14 +1,20 @@
 (function ($) {
     $(document).ready(function(){
-        initCanvas();
+        canvasSettings = {
+            canvasWidth: 40,
+            canvasHeight: 40,
+            canvasMargin: 10
+        };
+        initCanvas(canvasSettings);
     });
 
-    function initCanvas() {
+    function initCanvas(canvasSettings) {
         const $mapHolder = $('.office-map');
         
 
         $mapHolder.find('.level-map').each((index, item) => {
             getLevelValues(item);
+            
             console.log(getLevelValues(item));
         });
     }
@@ -18,22 +24,25 @@
         
         values = {
             width: $(item).innerWidth(),
-            height: $(item).innerHeight()
+            height: $(item).innerHeight(),
+            square: $(item).innerWidth() * $(item).innerHeight()
         }
 
         return values;
     }
 
-    function createCanvasItem(index, item) {
-        const canvas = document.createElement('canvas');
-
-        canvas.id = 'item-' + index;
-        canvas.width = 40;
-        canvas.height = 40;
-        canvas.style.zIndex = 10;
-        canvas.style.position = 'absolute';
-        canvas.style.border = '1px #ccc solid';
-
-        return canvas;
+    function createCanvasGrid (settings, item) {
+        while (settings.square > grid.square) {
+            createCanvas(item, settings);
+        }
     }
+
+    function createCanvas(item, settings) {
+        const canvas = document.createElement('canvas');
+        canvas.style.height = canvasSettings.canvasHeight;
+        canvas.style.width = canvasSettings.canvasWidth;
+    }
+
+
+
 })(jQuery);

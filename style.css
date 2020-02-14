@@ -59,6 +59,9 @@ body {
     opacity: 1;
     transition: opacity 400ms ease-out;
 }
+.level .level-map { 
+    position: relative;
+}
 
 .level img {
     width: 98%;

@@ -1,61 +1,47 @@
 (function ($) {
-    $(document).ready(function(){
-        canvasSettings = {
-            canvasWidth: 40,
-            canvasHeight: 40,
-            canvasMargin: 10
-        };
-        initCanvas(canvasSettings);
+    $(document).ready(function(e){
+        const $mapHolder = $('.office-map');
+        initCanvas($mapHolder);
     });
 
-    function initCanvas(canvasSettings) {
-        const $mapHolder = $('.office-map');
-        
-
+    function initCanvas($mapHolder) {
         $mapHolder.find('.level-map').each((index, item) => {
-            createCanvasGrid(canvasSettings, item);
+            $(item).append('<canvas id="canvas-' + index + '" class="map-canvas" width="1816" height="973"></canvas>');
+            let canvas = document.getElementById('canvas-' + index);
+            let ctx = canvas.getContext('2d');
+            console.log(ctx);
+            $(canvas).on('click', (e)=>{
+                let coordinates = getClickCoordinates(e);
+                let canvas = e.target;
+                drawSeat(canvas, coordinates, ctx);
+            });
+
         });
     }
 
-    function getLevelValues(item) {
-        let values = {};
-        
-        values = {
-            width: $(item).innerWidth(),
-            height: $(item).innerHeight(),
-            square: $(item).innerWidth() * $(item).innerHeight()
+    function getClickCoordinates(e) {
+        let coordinates = {};
+        let $div = $(e.target);
+        let offset = $div.offset();
+        coordinates = {
+            x: e.clientX - offset.left,
+            y: e.clientY - offset.top
         }
 
-        return values;
+        return coordinates;
     }
 
-    function createCanvasGrid (settings, item) {
-        const div = document.createElement('div');
-        const levelSettings = getLevelValues(item);
-        const canvas = createCanvas(item, canvasSettings);
-        div.className = 'canvas-holder';
-        div.style.position = 'absolute';
-        div.style.top = '0';
-        div.style.left = '0';
-        $(item).append(div);
-
-        let canvasHolderSquare = $(div).innerWidth() * $(div).innerHeight();
-        console.log(levelSettings.square);
-        let canvasCount = Math.round(levelSettings.square / (settings.canvasWidth * settings.canvasHeight));
-        let i=1;
-        while (i < canvasCount) {
-            let canvas = createCanvas(item, settings);
-            $(div).append(canvas);
-            i++;
+    function drawSeat(canvas, coordinates, ctx) {
+        if (canvas.getContext) {
+            ctx.beginPath();
+            ctx.lineWidth = '2';
+            ctx.strokeStyle = 'red';
+            console.log(coordinates);
+            ctx.strokeRect(coordinates.x, coordinates.y, 40, 40);
+            ctx.closePath();
+            console.log('draw');
+            console.log(canvas);
         }
-        console.log(canvasCount);
-    }
-
-    function createCanvas(item, settings) {
-        const canvas = document.createElement('canvas');
-        canvas.style.height = canvasSettings.canvasHeight;
-        canvas.style.width = canvasSettings.canvasWidth;
-        return canvas;
     }
 
 })(jQuery);

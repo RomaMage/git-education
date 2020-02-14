@@ -66,3 +66,12 @@ body {
 .level img {
     width: 98%;
 }
+.level .map-canvas {
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index:99;
+    overflow: hidden;
+    border:1px solid #ccc;
+}

@@ -6,41 +6,36 @@
 
     function initCanvas($mapHolder) {
         $mapHolder.find('.level-map').each((index, item) => {
-            $(item).append('<canvas id="canvas-' + index + '" class="map-canvas" width="1816" height="973"></canvas>');
             let canvas = document.getElementById('canvas-' + index);
             let ctx = canvas.getContext('2d');
-            console.log(ctx);
             $(canvas).on('click', (e)=>{
-                let coordinates = getClickCoordinates(e);
                 let canvas = e.target;
-                drawSeat(canvas, coordinates, ctx);
+                drawSeat(canvas, e, ctx);
             });
 
         });
     }
 
-    function getClickCoordinates(e) {
-        let coordinates = {};
-        let $div = $(e.target);
-        let offset = $div.offset();
-        coordinates = {
-            x: e.clientX - offset.left,
-            y: e.clientY - offset.top
-        }
+    function getClickCoordinates(canvas, evt) {
+        var rect = canvas.getBoundingClientRect(),
+        scaleX = canvas.width / rect.width,
+        scaleY = canvas.height / rect.height;
 
-        return coordinates;
+        return {
+            x: (evt.clientX - rect.left) * scaleX,
+            y: (evt.clientY - rect.top) * scaleY
+        }
     }
 
-    function drawSeat(canvas, coordinates, ctx) {
+    function drawSeat(canvas, evt, ctx) {
+        let coordinates = getClickCoordinates(canvas, evt);
+
         if (canvas.getContext) {
             ctx.beginPath();
-            ctx.lineWidth = '2';
+            ctx.lineWidth = '1';
             ctx.strokeStyle = 'red';
-            console.log(coordinates);
-            ctx.strokeRect(coordinates.x, coordinates.y, 40, 40);
+            ctx.strokeRect(coordinates.x - 1, coordinates.y - 1, 2, 2);
             ctx.closePath();
-            console.log('draw');
-            console.log(canvas);
         }
     }
 

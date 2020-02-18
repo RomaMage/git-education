@@ -6,12 +6,21 @@
     <title>JavaScript Canvas Education</title>
     <link rel="stylesheet" href="style.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="seat.js"></script>
     <script src="main.js"></script>
 </head>
 <body>
     <div class="office-map">
         <div class="office-map-form-holder">
             <form action="">
+                <div class="form-item">
+                    <label>Add Seat</label>
+                    <input id="create-seatmap" type="checkbox" name="create-seatmap" />
+                </div>
+                <div class="form-item">
+                    <label>Remove Seat</label>
+                    <input id="edit-seatmap" type="checkbox" name="edit-seatmap" />
+                </div>
                 <div class="form-item">
                     <input id="clear-storage" type="button" value="Clear Storage" />
                 </div>

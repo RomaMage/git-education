@@ -20,12 +20,13 @@
 
             
             $(canvas).on('click', (e)=>{
-                let canvas = e.target;
+                let canvas = e.target.id;
                 let coordinates = getClickCoordinates(canvas, e);
                 let seatIndex = getSeatsArray().length;
 
                 if (saveOption.prop('checked') == true) {
-                    seat = drawSeat(seatIndex, canvas, coordinates, ctx);
+                    drawSeat(canvas, coordinates, ctx);
+                    let seat = createSeat(seatIndex, coordinates, canvas);
                     saveSeatToStorage(seat);
                 }
                 if (editOption.prop('checked') == true) {
@@ -33,15 +34,16 @@
                 }
             });
 
-            $.each(seats, (seatId, seat) => {
-                if (seat.canvas == canvas.id) {
-                    drawSeat(canvas, seat.coordinates, ctx);
+            $(seats).each((seatId, seat) => {
+                if (canvas.id = seat.canvasId) {
+                    drawSeat(seat.canvas, seat.coordinates, ctx);
                 }
             });
         });
     }
 
-    function getClickCoordinates(canvas, evt) {
+    function getClickCoordinates(canvasId, evt) {
+        let canvas = document.getElementById(canvasId);
         let rect = canvas.getBoundingClientRect(),
         scaleX = canvas.width / rect.width,
         scaleY = canvas.height / rect.height;
@@ -52,9 +54,8 @@
         }
     }
 
-    function drawSeat(seatId, canvas, coordinates, ctx) {
-        let seat = createSeat(seatId, coordinates, canvas);
-
+    function drawSeat( canvasId, coordinates, ctx) {
+        let canvas = document.getElementById(canvasId);
         if (canvas.getContext) {
             ctx.beginPath();
             ctx.lineWidth = '1';
@@ -62,7 +63,6 @@
             ctx.strokeRect(coordinates.x - 1, coordinates.y - 1, 1, 1);
             ctx.closePath();
         }
-        return seat;
     }
 
     function checkCoordinates(seats, canvas, coordinates, ctx) {
@@ -81,9 +81,9 @@
 
     }
 
-    function createSeat(seatId, coordinates, canvas) {
+    function createSeat(seatId, coordinates, canvasId) {
         userData = '';
-        let seat = new Seat(seatId, coordinates, canvas, userData);
+        let seat = new Seat(seatId, coordinates, canvasId, userData);
 
         return seat;
     }

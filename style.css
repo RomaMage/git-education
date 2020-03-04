@@ -2,6 +2,25 @@ body {
 }
 .office-map {
     width: 98%;
+    position: relative;
+}
+.office-map .office-map-form-holder {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    background: #fff;
+    z-index: 9;
+    padding: 25px;
+}
+.office-map .office-map-form-holder .form-item {
+    display: flex;
+    justify-content: space-between;
+    min-width: 150px;
+    margin-bottom: 13px;
+}
+
+.office-map .office-map-form-holder .form-item label {
+    display: flex;
 }
 .levels { 
     width: 100%;

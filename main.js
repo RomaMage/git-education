@@ -9,26 +9,29 @@
         });
     });
 
+    /**
+     * Initialize canvas functional.
+     * @param {*} $mapHolder 
+     */
     function initCanvas($mapHolder) {
         let seats = getSeatsArray();
-        let saveOption = $('#create-seatmap');
-        let editOption = $('#edit-seatmap');
 
         $mapHolder.find('.level-map').each((index, item) => {
             let canvas = document.getElementById('canvas-' + index);
             
             $(canvas).on('click', (e)=>{
+                let formMode = getMapMode();
                 let coordinates = getClickCoordinates(canvas, e);
                 let seatIndex = getSeatsArray().length;
-
-                if (saveOption.prop('checked') == true) {
+                if (formMode == 'add') {
                     drawSeat(canvas, coordinates);
                     let seat = createSeat(seatIndex, coordinates, canvas);
                     saveSeatToStorage(seat);
                 }
-                if (editOption.prop('checked') == true) {
+                if (formMode == 'remove') {
                     seat = checkCoordinates(seats, coordinates);
-                    console.log(seat);
+                    clearSeat(canvas, coordinates);
+                    removeSeatFromStorage(seat);
                 }
             });
 
@@ -41,6 +44,11 @@
         });
     }
 
+    /**
+     * Get canvas coordinates on click.
+     * @param {*} canvas 
+     * @param {*} evt 
+     */
     function getClickCoordinates(canvas, evt) {
         let rect = canvas.getBoundingClientRect(),
         scaleX = canvas.width / rect.width,
@@ -52,6 +60,11 @@
         }
     }
 
+    /**
+     * Draw seat on canvas.
+     * @param {*} canvas 
+     * @param {*} coordinates 
+     */
     function drawSeat( canvas, coordinates) {
         let ctx = canvas.getContext('2d');
         if (canvas.getContext) {
@@ -62,7 +75,28 @@
             ctx.closePath();
         }
     }
+    
+    /**
+     * clear drawn seat.
+     * @param {*} canvas 
+     * @param {*} coordinates 
+     */
+    function clearSeat(canvas, coordinates) {
+        let ctx = canvas.getContext('2d');
+        if (canvas.getContext) {
+            ctx.beginPath();
+            ctx.lineWidth = '1';
+            ctx.strokeStyle = 'grey';
+            ctx.clearRect(coordinates.x - 2, coordinates.y - 2, 4, 4);
+            ctx.closePath();
+        }
+    }
 
+    /**
+     * Check if clicked place have any canvas object.
+     * @param {*} seats 
+     * @param {*} coordinates 
+     */
     function checkCoordinates(seats, coordinates) {
         let seat = {};
         let searchAreaIndex = 4;
@@ -79,6 +113,12 @@
 
     }
 
+    /**
+     * Create seat object
+     * @param {*} seatId 
+     * @param {*} coordinates 
+     * @param {*} canvas 
+     */
     function createSeat(seatId, coordinates, canvas) {
         userData = '';
         let seat = new Seat(seatId, coordinates, canvas.id, userData);
@@ -86,11 +126,17 @@
         return seat;
     }
 
+    /**
+     * Clear storage
+     */
     function clearSeatStorage() {
         localStorage.clear();
         return location.reload();
     }
 
+    /**
+     * Get storage data
+     */
     function getSeatsArray() {
         localSeats = localStorage.getItem('officeSeats');
         if (typeof $.parseJSON(localStorage.getItem('officeSeats')) == 'object' && $.parseJSON(localStorage.getItem('officeSeats')) !== null) {
@@ -102,11 +148,49 @@
         return seats;
     }
 
+    /**
+     * Add new seat to local storage
+     * @param {*} seat 
+     */
     function saveSeatToStorage(seat) {
         seats = getSeatsArray();
         seats.push(seat);
         serialSeats = JSON.stringify(seats);
         localStorage.setItem('officeSeats', serialSeats);
+    }
+
+    /**
+     * Remove choosen seat from local storage
+     * @param {*} seat 
+     */
+    function removeSeatFromStorage(seat) {
+        let seats = getSeatsArray();
+
+        filteredSeats = seats.filter((item) => {
+            if (JSON.stringify(item.coordinates) != JSON.stringify(seat.coordinates)) {
+                return true;
+            } else {
+                return false;
+            }
+        });
+
+        serialSeats = JSON.stringify(filteredSeats);
+        localStorage.setItem('officeSeats', serialSeats);
+    }
+
+    /**
+     * Get choosen map mode
+     */
+    function getMapMode() {
+        let radios = document.getElementsByName('edit-seatmap');
+        let value;
+        $(radios).each((index, radio) => {
+            if (radio.checked) {
+                value = radio.value;
+            }
+        });
+
+        return value;
     }
 
 })(jQuery);

@@ -15,6 +15,8 @@
      */
     function initCanvas($mapHolder) {
         let seats = getSeatsArray();
+        let seat;
+        let $contextMenu = $('.canvas-context');
 
         $mapHolder.find('.level-map').each((index, item) => {
             let canvas = document.getElementById('canvas-' + index);
@@ -25,13 +27,23 @@
                 let seatIndex = getSeatsArray().length;
                 if (formMode == 'add') {
                     drawSeat(canvas, coordinates);
-                    let seat = createSeat(seatIndex, coordinates, canvas);
+                    seat = createSeat(seatIndex, coordinates, canvas);
                     saveSeatToStorage(seat);
                 }
                 if (formMode == 'remove') {
                     seat = checkCoordinates(seats, coordinates);
                     clearSeat(canvas, coordinates);
                     removeSeatFromStorage(seat);
+                }
+                if (formMode == 'view') {
+                    seat = checkCoordinates(seats, coordinates);
+                    console.log(seat);
+                    if (seat.coordinates !== undefined) {
+                        let position = getContextMenuCoordinates();
+                        console.log(position);
+                        $contextMenu.css({top: position.y, left: position.x});
+                        $contextMenu.show();
+                    }
                 }
             });
 
@@ -191,6 +203,18 @@
         });
 
         return value;
+    }
+
+    function getContextMenuCoordinates() {
+        let position = {};
+        $('.level-map').click((e) => {
+            let offset = $(e.target).offset();
+
+            position.x = e.clientX - offset.left;
+            position.y = e.clientY - offset.top;
+        });
+
+        return position;
     }
 
 })(jQuery);

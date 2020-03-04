@@ -16,34 +16,32 @@
 
         $mapHolder.find('.level-map').each((index, item) => {
             let canvas = document.getElementById('canvas-' + index);
-            let ctx = canvas.getContext('2d');
-
             
             $(canvas).on('click', (e)=>{
-                let canvas = e.target.id;
                 let coordinates = getClickCoordinates(canvas, e);
                 let seatIndex = getSeatsArray().length;
 
                 if (saveOption.prop('checked') == true) {
-                    drawSeat(canvas, coordinates, ctx);
+                    drawSeat(canvas, coordinates);
                     let seat = createSeat(seatIndex, coordinates, canvas);
                     saveSeatToStorage(seat);
                 }
                 if (editOption.prop('checked') == true) {
-                    seat = checkCoordinates(seats, canvas, coordinates, ctx);
+                    seat = checkCoordinates(seats, coordinates);
+                    console.log(seat);
                 }
             });
 
             $(seats).each((seatId, seat) => {
-                if (canvas.id = seat.canvasId) {
-                    drawSeat(seat.canvas, seat.coordinates, ctx);
+                if (canvas.id == seat.canvas) {
+                    let seatCanvas = document.getElementById(seat.canvas);
+                    drawSeat(seatCanvas, seat.coordinates);
                 }
             });
         });
     }
 
-    function getClickCoordinates(canvasId, evt) {
-        let canvas = document.getElementById(canvasId);
+    function getClickCoordinates(canvas, evt) {
         let rect = canvas.getBoundingClientRect(),
         scaleX = canvas.width / rect.width,
         scaleY = canvas.height / rect.height;
@@ -54,8 +52,8 @@
         }
     }
 
-    function drawSeat( canvasId, coordinates, ctx) {
-        let canvas = document.getElementById(canvasId);
+    function drawSeat( canvas, coordinates) {
+        let ctx = canvas.getContext('2d');
         if (canvas.getContext) {
             ctx.beginPath();
             ctx.lineWidth = '1';
@@ -65,7 +63,7 @@
         }
     }
 
-    function checkCoordinates(seats, canvas, coordinates, ctx) {
+    function checkCoordinates(seats, coordinates) {
         let seat = {};
         let searchAreaIndex = 4;
 
@@ -81,9 +79,9 @@
 
     }
 
-    function createSeat(seatId, coordinates, canvasId) {
+    function createSeat(seatId, coordinates, canvas) {
         userData = '';
-        let seat = new Seat(seatId, coordinates, canvasId, userData);
+        let seat = new Seat(seatId, coordinates, canvas.id, userData);
 
         return seat;
     }
